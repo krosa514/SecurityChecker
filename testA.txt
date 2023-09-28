@@ -1,2 +1,8 @@
 This is totally not a test file.
 More text to see if commit works blah blah blah blah blah blah blah balah lbal bahalsl.
+Even more text.
+Also an ascii dog.
+^..^      /
+/_/\_____/
+   /\   /\
+  /  \ /  \

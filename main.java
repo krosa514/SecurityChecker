@@ -72,7 +72,3 @@ class Report {
 
     }
 }
-
-
-//Hi
-// Test for commit

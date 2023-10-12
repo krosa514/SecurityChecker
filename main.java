@@ -72,9 +72,7 @@ class Report {
 
     }
 }
-<<<<<<< HEAD
+
 
 //Hi
-=======
 // Test for commit
->>>>>>> 87904e4c05a13e5742bf53b36573451a61e4da9d

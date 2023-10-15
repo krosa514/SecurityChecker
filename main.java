@@ -2,7 +2,7 @@
 import java.util.ArrayList;
 
 
-class HealthChecker {
+class VulnerabilityVigil {
     // Main class
     public static void main() {
 
@@ -20,55 +20,3 @@ class HealthChecker {
 
 }
 
-class Scanner {
-    // Different types of scans that will be performed
-    public void scan() {
-
-    }
-
-    public void VirusScanner() {
-
-    }
-
-    public void ApacheScanner() {
-
-    }
-
-    public void FirewallScanner() {
-
-    }
-}
-
-class AttackTesting {
-    // Testing with different attacks to check security of server/website
-}
-
-class SystemChecks {
-    // Keeps system in check for future warnings and problems
-    public void ConfigCheck() {
-
-    }
-
-    public void SystemUpdate() {
-
-    }
-
-    public void PasswdCheck() {
-
-    }
-}
-
-class Utilities {
-    // Functionalities of the program
-}
-
-class Report {
-    // Generate report after the scan is complete
-    public void generateReport() {
-
-    }
-
-    public void reportToHTML() {
-
-    }
-}

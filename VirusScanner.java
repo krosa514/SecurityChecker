@@ -17,7 +17,7 @@ class ScanThread extends Thread {
     
     @Override
     public void run() {
-        Process proc = Process("clamscan -i -v -r --log=logfile.txt /")
+        Process proc = Process("clamscan -i -v -r --log=logfile.txt /");
         proc.start();
         // Add line to get stdout from log file
     }

@@ -1,3 +1,3 @@
-class AttackTesting {
-    // Testing with different attacks to check security of server/website
+public interface AttackTesting {
+    public Report Test();
 }

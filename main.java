@@ -60,7 +60,7 @@ class VulnerabilityVigil {
     public static void main(String[] args) {
         main2();
         
-        // ignore below this was my test code
+        // ignore below this was test code
         scanType urType = scanType.FULL;
         switch (urType) {
             case FULL:

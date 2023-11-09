@@ -14,22 +14,22 @@ class VulnerabilityVigil {
      * Interact with user and return an array list of scanners
      * @return
      */
-    protected ArrayList<Scanner> selectScanner(){
+    protected static ArrayList<Scanner> selectScanner(){
         ArrayList<Scanner> allScanners = new ArrayList<>();
-        allScanners.add(new fullScan());
+        allScanners.add(new VirusScanner());
         //add more
 
         ArrayList<Scanner> selectedScanners = new ArrayList<>();
         System.out.println("Type numeric values separated by spaces to select scanners: ");
         for(int i=0; i<allScanners.size(); i++){
-            System.out.println(i + ": " + allScanners.get(i).getName();)
+            System.out.println(i + ": " + allScanners.get(i).getName());
         }
 
         String line = null; //System.in. read a line
-        String words = line.split();
-        for(int i=0; i<words.size(); i++){
+        String [] words = line.split(" ");
+        for(int i=0; i<words.length; i++){
             int idx =Integer.parseInt( words[i] );
-            selectedScanners.add(allScaners.get(idx));
+            selectedScanners.add(allScanners.get(idx));
         }
         return selectedScanners;
     }
@@ -37,7 +37,7 @@ class VulnerabilityVigil {
     /**
      * Stub function for main
      */
-    protected void main2(){
+    protected static void main2(){
         //1. get the list of scanners to run
         ArrayList<Scanner> arrScanner = selectScanner();
 
@@ -61,6 +61,7 @@ class VulnerabilityVigil {
         main2();
         
         // ignore below this was test code
+        /*
         scanType urType = scanType.FULL;
         switch (urType) {
             case FULL:
@@ -81,7 +82,7 @@ class VulnerabilityVigil {
             default:
                 break;
         }
-
+        */
     }
 
     // Select scanners

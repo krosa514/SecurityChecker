@@ -1,7 +1,10 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
 public class VirusScanner implements Scanner {
 
     protected Report myreport = null;
-    protected ScanThread mythread = null;
+    protected VirusScanThread mythread = null;
 
     @Override
     public Report Scan() {
@@ -12,7 +15,7 @@ public class VirusScanner implements Scanner {
 
     @Override
     public void start(){
-        this.mythread = new ScanThread();
+        this.mythread = new VirusScanThread();
         this.mythread.start();
     }; 
 
@@ -32,11 +35,49 @@ public class VirusScanner implements Scanner {
     }
 }
 
-class ScanThread extends Thread {
+class VirusScanThread extends Thread {
     protected Report report;
     @Override
     public void run() {
-        String clamav = "/usr/bin/clamav";
+        try {
+            // Command to run clamav
+            String clamav = "/usr/bin/clamav";
+            String cmd = clamav + " -v /usr/bin";
+
+            // Create a process builder
+            ProcessBuilder processBuilder = new ProcessBuilder(cmd.split("\\s+"));
+
+            // Redirect error stream to output stream
+            processBuilder.redirectErrorStream(true);
+
+            // Start the process
+            Process process = processBuilder.start();
+
+            // Read the output of the process
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            StringBuilder output = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                output.append(line).append("\n");
+            }
+
+            // Wait for the process to finish
+            int exitCode = process.waitFor();
+            System.out.println("Process exited with code: " + exitCode);
+
+            // Get the output as a string
+            String sout = output.toString();
+            System.out.println("Output:\n" + sout);
+
+            // Your Report object (assuming Report class has a constructor that takes a String)
+            Report rpt = new Report(sout);
+
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+       /* String clamav = "/usr/bin/clamav";
         String cmd = clamav + " -v /usr/bin";
         Process proc = ProcessBuilder.start(cmd);
         proc.waitFor();
@@ -45,4 +86,4 @@ class ScanThread extends Thread {
         Report rpt = new Report();
         //set up rpt contents by parsing sout
     }
-}
+}*/

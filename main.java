@@ -16,7 +16,8 @@ class VulnerabilityVigil {
      */
     protected static ArrayList<Scanner> selectScanner(){
         ArrayList<Scanner> allScanners = new ArrayList<>();
-        allScanners.add(new VirusScanner());
+        Scanner sc = new VirusScanner();
+        allScanners.add(sc);
         //add more
 
         ArrayList<Scanner> selectedScanners = new ArrayList<>();
@@ -25,7 +26,8 @@ class VulnerabilityVigil {
             System.out.println(i + ": " + allScanners.get(i).getName());
         }
 
-        String line = null; //System.in. read a line
+        java.util.Scanner scanner = new java.util.Scanner(System.in);
+        String line = scanner.nextLine();
         String [] words = line.split(" ");
         for(int i=0; i<words.length; i++){
             int idx =Integer.parseInt( words[i] );

@@ -21,7 +21,12 @@ public class VirusScanner implements Scanner {
 
     @Override
     public void join(){
-        this.mythread.join();
+        try {
+            this.mythread.join();
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         this.myreport = this.mythread.report;
     }
 
@@ -41,8 +46,7 @@ class VirusScanThread extends Thread {
     public void run() {
         try {
             // Command to run clamav
-            String clamav = "/usr/bin/clamav";
-            String cmd = clamav + " -v /usr/bin";
+            String cmd ="/usr/bin/clamscan -r /";
 
             // Create a process builder
             ProcessBuilder processBuilder = new ProcessBuilder(cmd.split("\\s+"));

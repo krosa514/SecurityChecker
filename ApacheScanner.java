@@ -2,10 +2,10 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 
-public class OpenVASScanner implements Scanner {
+public class ApacheScanner implements Scanner {
 
     protected Report myreport = null;
-    protected OpenVASScanThread mythread = null;
+    protected ApacheScanThread mythread = null;
 
     @Override
     public Report Scan() {
@@ -16,7 +16,7 @@ public class OpenVASScanner implements Scanner {
 
     @Override
     public void start(){
-        this.mythread = new OpenVASScanThread();
+        this.mythread = new ApacheScanThread();
         this.mythread.start();
     }; 
 
@@ -32,7 +32,7 @@ public class OpenVASScanner implements Scanner {
 
     @Override
     public String getName(){
-        return "OpenVASScanner";
+        return "ApacheScanner";
     }
 
     @Override
@@ -41,7 +41,7 @@ public class OpenVASScanner implements Scanner {
     }
 }
 
-class OpenVASScanThread extends Thread {
+class ApacheScanThread extends Thread {
     protected Report report;
 
     @Override

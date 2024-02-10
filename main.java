@@ -16,8 +16,10 @@ class VulnerabilityVigil {
      */
     protected static ArrayList<Scanner> selectScanner(){
         ArrayList<Scanner> allScanners = new ArrayList<>();
-        Scanner sc = new VirusScanner();
-        allScanners.add(sc);
+        Scanner vs = new VirusScanner();
+        allScanners.add(vs);
+        Scanner fws = new FirewallScanner();
+        allScanners.add(fws);
         //add more
 
         ArrayList<Scanner> selectedScanners = new ArrayList<>();

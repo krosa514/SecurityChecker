@@ -20,6 +20,8 @@ class VulnerabilityVigil {
         allScanners.add(vs);
         Scanner fws = new FirewallScanner();
         allScanners.add(fws);
+        Scanner openvas = new OpenVASScanner();
+        allScanners.add(openvas);
         //add more
 
         ArrayList<Scanner> selectedScanners = new ArrayList<>();

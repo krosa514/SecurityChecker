@@ -47,7 +47,7 @@ class FirewallScanThread extends Thread {
         try {
             // Run ufw (UncomplicatedFirewall) for scanner
             String cmd = "sudo ufw status verbose";
-            String[] command = { "bash", "-c", cmd  + " | tee output.txt"};
+            String[] command = { "bash", "-c", cmd  + " | tee results/FirewallScanResults.txt"};
 
             ProcessBuilder processBuilder = new ProcessBuilder(command);
             

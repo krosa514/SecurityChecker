@@ -3,7 +3,7 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 public class VirusScanner implements Scanner {
 
-    protected Report myreport = null;
+    //protected Report myreport = null;
     protected VirusScanThread mythread = null;
 
     @Override
@@ -42,11 +42,12 @@ public class VirusScanner implements Scanner {
 
 class VirusScanThread extends Thread {
     protected Report report;
+
     @Override
     public void run() {
         try {
-            // Command to run clamav
-            String cmd ="/usr/bin/clamscan -r /";
+            // Command to run clamav with sudo
+            String cmd = "sudo clamscan -r /";
 
             // Create a process builder
             ProcessBuilder processBuilder = new ProcessBuilder(cmd.split("\\s+"));
@@ -81,13 +82,3 @@ class VirusScanThread extends Thread {
         }
     }
 }
-       /* String clamav = "/usr/bin/clamav";
-        String cmd = clamav + " -v /usr/bin";
-        Process proc = ProcessBuilder.start(cmd);
-        proc.waitFor();
-        //try to use buffer reader to read out all the output
-        String sout = null;
-        Report rpt = new Report();
-        //set up rpt contents by parsing sout
-    }
-}*/

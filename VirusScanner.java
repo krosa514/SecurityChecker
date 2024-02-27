@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
+
 public class VirusScanner implements Scanner {
 
     protected Report myreport = null;
@@ -46,11 +47,18 @@ class VirusScanThread extends Thread {
     @Override
     public void run() {
         try {
-            // Command to run clamav with sudo
-            String cmd = "sudo clamscan -r /";
+            java.util.Scanner scanner = new java.util.Scanner(System.in);
+            System.out.print("Enter a path to scan ");
+
+            String path = scanner.nextLine();
+
+            // Command to run clamav
+            String cmd = "sudo clamscan -r ";
+
+            String[] command = { "bash", "-c", cmd  + path + " | tee results/VirusScanResults.txt"};
 
             // Create a process builder
-            ProcessBuilder processBuilder = new ProcessBuilder(cmd.split("\\s+"));
+            ProcessBuilder processBuilder = new ProcessBuilder(command);
 
             // Redirect error stream to output stream
             processBuilder.redirectErrorStream(true);

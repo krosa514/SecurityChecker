@@ -3,7 +3,7 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 public class VirusScanner implements Scanner {
 
-    //protected Report myreport = null;
+    protected Report myreport = null;
     protected VirusScanThread mythread = null;
 
     @Override

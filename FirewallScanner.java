@@ -83,7 +83,7 @@ class FirewallScanThread extends Thread {
                         report.setOpenPorts(report.getOpenPorts() + port + ", ");
                         System.out.println("Unnecessary Port Detected: " + port);
                     } else {
-                        System.out.println("Valid Port: " + port);
+                        System.out.println("Valid Port for web server: " + port);
                     }
                 } catch (NumberFormatException e) {
                     // Print the exception for troubleshooting
@@ -93,7 +93,7 @@ class FirewallScanThread extends Thread {
             }
         }
     }
-
+    
             // Set the Report object in the Thread
             this.report = new Report(output.toString());
             report.setOpenPorts(report.getOpenPorts().length() > 2 ?
@@ -111,15 +111,17 @@ class FirewallScanThread extends Thread {
     private boolean isValidPort(int port) {
         // Replace this with your actual list of valid ports
         // Add more valid ports
-        int[] validPorts = {22, 80, 443, 21, 25, 110, 143, 53, 123, 389};
+        int[] validPorts = {80, 443};
 
         for (int validPort : validPorts) {
             if (port == validPort) {
                 return true;
+            } else if (port > 1024) {
+                return false;
             }
         }
 
-        return false;
+        return true;
     }
 }
 

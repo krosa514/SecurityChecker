@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 
 public class PasswordCheck implements Scanner {
     
@@ -85,6 +84,8 @@ class PasswordCheckThread extends Thread {
         String sout = output.toString();
         System.out.println("Output:\n" + sout);
         Report rpt = new Report(sout);
+
+        scanner.close();
         
         if(!hasDefaultPassword) { 
             System.out.println("MySQL server setup is good. No default passwords.");

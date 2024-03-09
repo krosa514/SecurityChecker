@@ -24,6 +24,8 @@ class VulnerabilityVigil {
         allScanners.add(openvas);
         Scanner mysql = new PasswordCheck();
         allScanners.add(mysql);
+        Scanner shadow = new ShadowFileCheck();
+        allScanners.add(shadow);
         //add more
 
         ArrayList<Scanner> selectedScanners = new ArrayList<>();

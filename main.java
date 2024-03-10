@@ -4,16 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 class VulnerabilityVigil {
-    /*enum scanType {
-        FULL,
-        QUICK,
-        CUST
-    } */
 
-    /**
-     * Interact with user and return an array list of scanners
-     * @return
-     */
     protected static ArrayList<Scanner> selectScanner(){
         ArrayList<Scanner> allScanners = new ArrayList<>();
         Scanner vs = new VirusScanner();
@@ -26,6 +17,8 @@ class VulnerabilityVigil {
         allScanners.add(mysql);
         Scanner shadow = new ShadowFileCheck();
         allScanners.add(shadow);
+        Scanner apache2 = new Apache2Check();
+        allScanners.add(apache2);
         //add more
 
         ArrayList<Scanner> selectedScanners = new ArrayList<>();
@@ -43,11 +36,10 @@ class VulnerabilityVigil {
         }
         return selectedScanners;
     }
-
-    /**
-     * Stub function for main
-     */
-    protected static void main2(){
+    
+    // Main class
+    public static void main(String[] args) {
+        // main2();
         //1. get the list of scanners to run
         ArrayList<Scanner> arrScanner = selectScanner();
 
@@ -64,41 +56,8 @@ class VulnerabilityVigil {
         // NEED a report function which writes an array of reports as one HTML 
         //3. generate the report
         System.out.println("REPORT is generated and located at: ");
-    }
-    
-    // Main class
-    public static void main(String[] args) {
-        main2();
-        
-        // ignore below this was test code
-        /*
-        scanType urType = scanType.FULL;
-        switch (urType) {
-            case FULL:
-                fullScan Test1 = new fullScan();
-                try {
-                    Test1.Scan();
-                } catch (IOException e) {
-                    return;
-                }
-                System.out.print(Test1.getOutput());
-                break;
-            case QUICK:
-                System.out.println("The quickscan.");
-                break;
-            case CUST:
-                System.out.println("The customscan.");
-                break;
-            default:
-                break;
-        }
-        */
+
     }
 
-    // Select scanners
-    public void selectScanners() {
-        return;
-    }
-    // Keeps an array of scanners for the user to choose
-    // ArrayList<Scanners> Scanners = new ArrayList<Scanners>();
+
 }

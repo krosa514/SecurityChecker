@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class VirusScanner implements Scanner {
 
@@ -18,14 +20,13 @@ public class VirusScanner implements Scanner {
     public void start(){
         this.mythread = new VirusScanThread();
         this.mythread.start();
-    }; 
+    }
 
     @Override
     public void join(){
         try {
             this.mythread.join();
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         this.myreport = this.mythread.report;
@@ -35,6 +36,7 @@ public class VirusScanner implements Scanner {
     public String getName(){
         return "VirusScanner";
     }
+
     @Override
     public Report getReport(){
         return this.myreport;
@@ -48,14 +50,13 @@ class VirusScanThread extends Thread {
     public void run() {
         try {
             java.util.Scanner scanner = new java.util.Scanner(System.in);
-            System.out.print("Enter a path to scan ");
-
+            System.out.print("Enter a path to scan: ");
             String path = scanner.nextLine();
 
             // Command to run clamav
             String cmd = "sudo clamscan -r ";
 
-            String[] command = { "bash", "-c", cmd  + path + " | tee results/VirusScanResults.txt"};
+            String[] command = { "bash", "-c", cmd + path };
 
             // Create a process builder
             ProcessBuilder processBuilder = new ProcessBuilder(command);
@@ -82,9 +83,16 @@ class VirusScanThread extends Thread {
             String sout = output.toString();
             System.out.println("Output:\n" + sout);
 
-            // Your Report object (assuming Report class has a constructor that takes a String)
-            Report rpt = new Report(sout);
+            //// Write the output to a text file//
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("Results.txt"))) {
+                writer.write(sout);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
+            // Create a Report object with the output
+            report = new Report(sout);
+            report.generateReport();
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }

@@ -55,8 +55,10 @@ class ApacheScanThread extends Thread {
             Process apacheProcess = Runtime.getRuntime().exec(new String[]{"bash", "-c", apacheCmd});
             BufferedReader apacheReader = new BufferedReader(new InputStreamReader(apacheProcess.getInputStream()));
             String apacheLine;
-            while ((apacheLine = apacheReader.readLine()) != null) {
+            if ((apacheLine = apacheReader.readLine()) != null) {
                 output.append("Port 80 is enabled: ").append(apacheLine).append("\n");
+            } else {
+                output.append("Port 80 is not enabled.\n");
             }
             apacheProcess.waitFor();
     
@@ -65,8 +67,10 @@ class ApacheScanThread extends Thread {
             Process sslProcess = Runtime.getRuntime().exec(new String[]{"bash", "-c", sslCmd});
             BufferedReader sslReader = new BufferedReader(new InputStreamReader(sslProcess.getInputStream()));
             String sslLine;
-            while ((sslLine = sslReader.readLine()) != null) {
+            if ((sslLine = sslReader.readLine()) != null) {
                 output.append("SSL configured: ").append(sslLine).append("\n");
+            } else {
+                output.append("SSL is not configured.\n");
             }
             sslProcess.waitFor();
     
@@ -75,8 +79,10 @@ class ApacheScanThread extends Thread {
             Process cryptoProcess = Runtime.getRuntime().exec(new String[]{"bash", "-c", cryptoCmd});
             BufferedReader cryptoReader = new BufferedReader(new InputStreamReader(cryptoProcess.getInputStream()));
             String cryptoLine;
-            while ((cryptoLine = cryptoReader.readLine()) != null) {
+            if ((cryptoLine = cryptoReader.readLine()) != null) {
                 output.append("SSL module loaded: ").append(cryptoLine).append("\n");
+            } else {
+                output.append("SSL module is not loaded.\n");
             }
             cryptoProcess.waitFor();
     
@@ -90,7 +96,8 @@ class ApacheScanThread extends Thread {
                 if (parts.length >= 3) {
                     String fileOwner = parts[2];
                     String permissionBits = parts[0];
-                    output.append("File owner: ").append(fileOwner).append(", Permission bits: ").append(permissionBits).append("\n");
+                    output.append("File owner: ").append(fileOwner).append("\n");
+        output.append("Permission bits: ").append(permissionBits).append("\n");
                 }
             }
             permissionProcess.waitFor();
@@ -103,5 +110,6 @@ class ApacheScanThread extends Thread {
             e.printStackTrace();
         }
     }
+    
     
 }

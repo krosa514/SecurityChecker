@@ -11,14 +11,16 @@ class VulnerabilityVigil {
         allScanners.add(vs);
         Scanner fws = new FirewallScanner();
         allScanners.add(fws);
-        Scanner openvas = new ApacheScanner();
-        allScanners.add(openvas);
+        Scanner apache = new ApacheScanner();
+        allScanners.add(apache);
         Scanner mysql = new PasswordCheck();
         allScanners.add(mysql);
         Scanner shadow = new ShadowFileCheck();
         allScanners.add(shadow);
         Scanner apache2 = new Apache2Check();
         allScanners.add(apache2);
+        Scanner update = new SystemUpdate();
+        allScanners.add(update);
         //add more
 
         ArrayList<Scanner> selectedScanners = new ArrayList<>();

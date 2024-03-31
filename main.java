@@ -1,6 +1,8 @@
 // Vulnerability Vigil
 
 import java.util.ArrayList;
+import java.io.*;
+import java.util.*;
 
 class VulnerabilityVigil {
 
@@ -54,9 +56,65 @@ class VulnerabilityVigil {
         }
         // NEED a report function which writes an array of reports as one HTML 
         //3. generate the report
-        System.out.println("REPORT is generated and located at: ");
+        for (int i = 0; i < arrReports.size(); i++) {
+            Report report = arrReports.get(i);
+            String scannerName = "Scanner_" + (i + 1);
+            if (report != null) {
+                report.generateReport("results.txt", arrReports);
+            } else {
+                System.out.println("Report generation failed for scanner: " + scannerName);
+            }
+            System.out.println("REPORT is generated and located at: ");
+        }
+
+            // Check if report is null
+        //    if (report != null) {
+                // Write the report to a separate text file for each scanner
+        //        writeReportsToFile("results.txt", arrReports);
+        //    } else {
+        //       System.out.println("Report generation failed for scanner: " + scannerName);
+        //    }
+        //}
+
         
+        
+        //Report report = new Report("results");
+        //report.generateReport("results.txt", arrReports);
+        //Report reportInstance = new Report(); // Create an instance of Report class
+        //reportInstance.generateReport(arrScanner, arrReports);
+        //generateIndividualReports(arrScanner, arrReports);
+    }
+    
+    
+    /* 
+    private static void generateIndividualReports(ArrayList<Scanner> arrScanner, ArrayList<Report> arrReports) {
+    for (int i = 0; i < arrScanner.size(); i++) {
+        Scanner scanner = arrScanner.get(i);
+        Report report = arrReports.get(i);
+
+        // Check if report is null
+        if (report != null) {
+            // Write the report to a separate text file for each scanner
+            writeReportToFile(scanner.getName() + "_results.txt", report.toString());
+        } else {
+            System.out.println("Report generation failed for scanner: " + scanner.getName());
+        }
     }
 
+    System.out.println("Individual reports are generated.");
+}
+*/
+    // Method to write report to a text file
+    /* 
+    private static void writeReportToFile(String fileName, String content) {
+        fileName = "scan_results.txt";
+        try (FileWriter fileWriter = new FileWriter(fileName)) {
+            fileWriter.write(content);
+            System.out.println("Report generated: " + fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+*/
 }

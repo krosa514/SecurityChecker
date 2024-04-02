@@ -92,7 +92,7 @@ class VirusScanThread extends Thread {
 
             // Create a Report object with the output
             report = new Report(sout);
-            report.generateReport();
+            
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }

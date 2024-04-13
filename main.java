@@ -54,18 +54,20 @@ class VulnerabilityVigil {
             Report report = arrScanner.get(i).getReport();
             arrReports.add(report);
         }
+        Report report = new Report();
+        report.generateReport("all_reports.json", arrReports);
         // NEED a report function which writes an array of reports as one HTML 
         //3. generate the report
-        for (int i = 0; i < arrReports.size(); i++) {
-            Report report = arrReports.get(i);
-            String scannerName = "Scanner_" + (i + 1);
-            if (report != null) {
-                report.generateReport("results.txt", arrReports);
-            } else {
-                System.out.println("Report generation failed for scanner: " + scannerName);
-            }
-            System.out.println("REPORT is generated and located at: ");
-        }
+        //for (int i = 0; i < arrReports.size(); i++) {
+        //    Report report = arrReports.get(i);
+        //    String scannerName = "Scanner_" + (i + 1);
+        //    if (report != null) {
+        //        report.generateReport();
+        //    } else {
+        //        System.out.println("Report generation failed for scanner: " + scannerName);
+        //   }
+        //    System.out.println("REPORT is generated and located at: ");
+        //}
 
             // Check if report is null
         //    if (report != null) {

@@ -1,4 +1,6 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -43,7 +45,7 @@ public class ShadowFileCheck implements Scanner {
 }
 
 class ShadowFileCheckThread extends Thread {
-    protected Report report; 
+    protected static Report report; 
 
     @Override
     public void run() {
@@ -77,10 +79,14 @@ class ShadowFileCheckThread extends Thread {
             System.out.println("Process exited with code: " + exitCode);
 
             String sout = output.toString();
+            System.out.println("Output:\n" + sout);
 
-            if (printOutput) {
-                System.out.println("Output:\n" + sout);
-                Report rpt = new Report(sout);
+            report = new Report(sout);
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("ShadowFileCheck.txt"))) {
+                writer.write(sout);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
         } catch (IOException | InterruptedException e) {

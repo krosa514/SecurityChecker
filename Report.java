@@ -44,7 +44,7 @@ class Report {
         jsonBuilder.append("\n]");
 
         // Write JSON data to file
-        try (FileWriter writer = new FileWriter(fileName)) {
+        try (FileWriter writer = new FileWriter(fileName, true)) {
             writer.write(jsonBuilder.toString());
             System.out.println("Reports generated and saved to " + fileName);
         } catch (IOException e) {

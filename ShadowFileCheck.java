@@ -45,7 +45,8 @@ public class ShadowFileCheck implements Scanner {
 }
 
 class ShadowFileCheckThread extends Thread {
-    protected static Report report; 
+    protected Report report; 
+    StringBuilder result = new StringBuilder();
 
     @Override
     public void run() {
@@ -54,7 +55,7 @@ class ShadowFileCheckThread extends Thread {
         runHashcat("sudo hashcat -a 0 -m 1800 /etc/shadow rockyou.txt --show", true);
     }
 
-    private static void runHashcat(String command, boolean printOutput) {
+    public void runHashcat(String command, boolean printOutput) {
         try {
             String[] hashcatCommand = {"bash", "-c", command};
 
@@ -71,7 +72,9 @@ class ShadowFileCheckThread extends Thread {
                 output.append(line).append("\n");
                 if (line.matches("^\\$\\d\\$.+:.+")) {
                     String[] parts = line.split(":", 2);
-                    printWarning("Password found for hash " + parts[0] + ": " + parts[1]);
+                    printWarning("Severity Level 1\nPassword found for hash " + parts[0] + ": " + parts[1]);
+                    result.append("Severity Level 1\n");
+                    result.append("Password found for hash " + parts[0] + ": " + parts[1]);
                 }
             }
 
@@ -81,7 +84,7 @@ class ShadowFileCheckThread extends Thread {
             String sout = output.toString();
             System.out.println("Output:\n" + sout);
 
-            report = new Report(sout);
+            report = new Report(result.toString());
 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter("ShadowFileCheck.txt"))) {
                 writer.write(sout);

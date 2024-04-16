@@ -20,6 +20,8 @@ class VulnerabilityVigil {
         allScanners.add(shadow);
         Scanner apache2 = new Apache2Check();
         allScanners.add(apache2);
+        Scanner sysupdate = new SystemUpdate();
+        allScanners.add(sysupdate);
         //add more
 
         ArrayList<Scanner> selectedScanners = new ArrayList<>();

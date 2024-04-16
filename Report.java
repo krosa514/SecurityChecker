@@ -14,6 +14,7 @@ class Report {
     // Constructor that takes a String argument
     public Report(String output) {
         this.output = output;
+
     }
 
    @Override

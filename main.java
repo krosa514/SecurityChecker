@@ -22,6 +22,8 @@ class VulnerabilityVigil {
         allScanners.add(apache2);
         Scanner sysupdate = new SystemUpdate();
         allScanners.add(sysupdate);
+        Scanner wafDet = new wafDetCheck();
+        allScanners.add(wafDet);
         //add more
 
         ArrayList<Scanner> selectedScanners = new ArrayList<>();

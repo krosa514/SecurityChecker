@@ -96,6 +96,7 @@ class PasswordCheckThread extends Thread {
         int exitCode = process.waitFor();
         System.out.println("Exit Code: " + exitCode);
         this.report = new Report(result.toString());
+        this.report.setName("MySQL Password Check");
         System.out.println("Output:\n" + output.toString());
 
         scanner.close();

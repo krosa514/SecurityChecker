@@ -80,6 +80,7 @@ class SystemUpdateCheckThread extends Thread {
                 }
             }
             this.report = new Report(result.toString());
+            this.report.setName("System Update Check");
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }

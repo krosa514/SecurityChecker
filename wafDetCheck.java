@@ -124,7 +124,7 @@ class wafDetCheckThread extends Thread {
                         boolean found = match.find();
                         if (found) {
                             //System.out.println("WAF Detected: It's name is: " + wafName[i]);
-                            result = result + "WAF Detected: It's name is: " + wafName[i];
+                            result = result + "WAF Detected for " + input + ". It's name is: " + wafName[i];
                         }
                     }
                 }
@@ -135,6 +135,7 @@ class wafDetCheckThread extends Thread {
             }
 
             this.report = new Report(result);
+            this.report.setName("Web Application Firewall Detection");
             int exitcode = process.waitFor();
             if (exitcode == 0)
                 System.out.println("Success");

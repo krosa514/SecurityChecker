@@ -14,7 +14,6 @@ class Report {
     // Constructor that takes a String argument
     public Report(String output) {
         this.output = output;
-        this.openPorts = "";
     }
 
    @Override
@@ -74,7 +73,7 @@ class Report {
 
     public String getName() {
         // Implement this based on your Scanner interface
-        return "";
+        return name;
     }
     // Generate an HTML report
     public void reportToHTML() {
@@ -83,18 +82,16 @@ class Report {
     }
 
     private String firewallStatus;
-    private String openPorts;
+    private String name;
 
     public String getFirewallStatus() {
         return firewallStatus;
     }
 
-    public void setOpenPorts(String openPorts) {
-        this.openPorts = openPorts;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getOpenPorts() {
-        return openPorts;
-    }
+    
 
 }

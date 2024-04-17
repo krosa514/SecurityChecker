@@ -3,6 +3,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.util.regex.*;
+import java.io.*;
 
 public class FirewallScanner implements Scanner {
 
@@ -45,12 +47,12 @@ public class FirewallScanner implements Scanner {
 
 class FirewallScanThread extends Thread {
     protected Report report;
-
+    StringBuilder result = new StringBuilder();
     @Override
     public void run() {
         try {
             // Command to run firewall scan
-            String cmd = "nmap --script vulners localhost";
+            String cmd = "nmap -sV --script vulners localhost";
 
             String[] command = { "bash", "-c", cmd };
 
@@ -65,35 +67,36 @@ class FirewallScanThread extends Thread {
 
             // Read the output of the process
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            StringBuilder output = new StringBuilder();
             String line;
+            boolean vulnerabilitiesDetected = false;
+            String port = "";
             while ((line = reader.readLine()) != null) {
-                output.append(line).append("\n");
+                if (line.matches("^\\d+/tcp.*")) {
+                    port = line.split("/")[0];
+                }
+                if (line.contains("vulners:") && !port.isEmpty()) {
+                    vulnerabilitiesDetected = true;
+                    System.out.println("Vulnerabilities detected on port " + port);
+                    result.append("Vulnerabilities detected on port " + port +  "\n" );
+                }
             }
 
+            // Print message if no vulnerabilities were detected
+            if (!vulnerabilitiesDetected) {
+                System.out.println("No vulnerabilities detected by NMap.");
+                result.append("No vulnerabilities detected by NMap");
+            }
+            
             // Wait for the process to finish
             int exitCode = process.waitFor();
             System.out.println("Process exited with code: " + exitCode);
-
-            // Get the output as a string
-            String sout = output.toString();
-            System.out.println("Output:\n" + sout);
-
-            //// Write the output to a text file//
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter("FirewallResults.txt"))) {
-                writer.write(sout);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            // Create a Report object with the output
-            report = new Report(sout);
-            this.report.setName("Firewall Scanner");
+            this.report = new Report(result.toString());
+            this.report.setName("Firewall Vulnerability Scanner");
             
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
-    }
 
+    }
 }
 

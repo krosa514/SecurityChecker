@@ -1,4 +1,7 @@
-/home/virus folder: No such file or directory
+[
+{
+"scanner": "Virus Scanner",
+"output": "/home/virus folder: No such file or directory
 WARNING: /home/virus folder: Can't access file
 
 ----------- SCAN SUMMARY -----------
@@ -12,3 +15,20 @@ Data read: 0.00 MB (ratio 0.00:1)
 Time: 18.956 sec (0 m 18 s)
 Start Date: 2024:04:21 18:32:47
 End Date:   2024:04:21 18:33:06
+"
+}
+][
+
+][
+{
+"scanner": "Firewall Vulnerability Scanner",
+"output": "No vulnerabilities detected by NMap"
+},
+{
+"scanner": "Apache Server Check",
+"output": "Port 80 is not enabled.
+SSL is not configured.
+SSL module is not loaded.
+"
+}
+]

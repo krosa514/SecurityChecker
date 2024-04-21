@@ -1,5 +1,3 @@
-// Vulnerability Vigil
-
 import java.util.ArrayList;
 import java.io.*;
 import java.util.*;
@@ -27,100 +25,71 @@ class VulnerabilityVigil {
         //add more
 
         ArrayList<Scanner> selectedScanners = new ArrayList<>();
-        System.out.println("Type numeric values separated by spaces to select scanners: ");
-        for(int i=0; i<allScanners.size(); i++){
-            System.out.println(i + ": " + allScanners.get(i).getName());
+        java.util.Scanner inputScanner = new java.util.Scanner(System.in);
+        while (true) {
+            System.out.println("Type the name of the scanners you want to select (separated by spaces), 'help' for available scanners, or 'exit' to quit: ");
+            String line = inputScanner.nextLine();
+            if (line.equalsIgnoreCase("exit")) {
+                System.out.println("Exiting...");
+                System.exit(0);
+            } else if (line.equalsIgnoreCase("help")) {
+                // Clear the screen
+                System.out.print("\033[H\033[2J");  
+                System.out.flush();  
+                // Print available scanners
+                System.out.println("Available scanners:");
+                for (Scanner scanner : allScanners) {
+                    System.out.println(scanner.getName());
+                }
+            } else {
+                String [] words = line.split(" ");
+                for(String name : words){
+                    if (name.equalsIgnoreCase("exit")) {
+                        System.out.println("Exiting...");
+                        System.exit(0);
+                    }
+                    for (Scanner scanner : allScanners) {
+                        if (scanner.getName().equalsIgnoreCase(name)) {
+                            selectedScanners.add(scanner);
+                            break;
+                        }
+                    }
+                }
+                return selectedScanners;
+            }
         }
-
-        java.util.Scanner scanner = new java.util.Scanner(System.in);
-        String line = scanner.nextLine();
-        String [] words = line.split(" ");
-        for(int i=0; i<words.length; i++){
-            int idx =Integer.parseInt( words[i] );
-            selectedScanners.add(allScanners.get(idx));
-        }
-        return selectedScanners;
     }
     
     // Main class
     public static void main(String[] args) {
-        // main2();
-        //1. get the list of scanners to run
-        ArrayList<Scanner> arrScanner = selectScanner();
+        while (true) {
+            // Clear the screen
+            System.out.print("\033[H\033[2J");  
+            System.out.flush();  
 
-        //2. run each scanner
-        for(int i=0; i<arrScanner.size(); i++){
-            arrScanner.get(i).start();
-        }
-        ArrayList<Report> arrReports = new ArrayList<>();
-        for(int i=0; i<arrScanner.size(); i++){
-            arrScanner.get(i).join();
-            Report report = arrScanner.get(i).getReport();
-            arrReports.add(report);
-        }
-        Report report = new Report();
-        report.generateReport("all_reports.json", arrReports);
-        // NEED a report function which writes an array of reports as one HTML 
-        //3. generate the report
-        //for (int i = 0; i < arrReports.size(); i++) {
-        //    Report report = arrReports.get(i);
-        //    String scannerName = "Scanner_" + (i + 1);
-        //    if (report != null) {
-        //      //  report.generateReport();
-        //    } else {
-        //        System.out.println("Report generation failed for scanner: " + scannerName);
-        //   }
-        //    System.out.println("REPORT is generated and located at: ");
-        //}
+            // Print the title
+            System.out.println("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
+            System.out.println("// Vulnerability Vigil");
+            System.out.println("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
+            
+            // Print instructions
+            System.out.println("If you want to find out the commands, type help.");
 
-            // Check if report is null
-        //    if (report != null) {
-                // Write the report to a separate text file for each scanner
-        //        writeReportsToFile("results.txt", arrReports);
-        //    } else {
-        //       System.out.println("Report generation failed for scanner: " + scannerName);
-        //    }
-        //}
+            //1. get the list of scanners to run
+            ArrayList<Scanner> arrScanner = selectScanner();
 
-        
-        
-        //Report report = new Report("results");
-        //report.generateReport("results.txt", arrReports);
-        //Report reportInstance = new Report(); // Create an instance of Report class
-        //reportInstance.generateReport(arrScanner, arrReports);
-        //generateIndividualReports(arrScanner, arrReports);
-    }
-    
-    
-    /* 
-    private static void generateIndividualReports(ArrayList<Scanner> arrScanner, ArrayList<Report> arrReports) {
-    for (int i = 0; i < arrScanner.size(); i++) {
-        Scanner scanner = arrScanner.get(i);
-        Report report = arrReports.get(i);
-
-        // Check if report is null
-        if (report != null) {
-            // Write the report to a separate text file for each scanner
-            writeReportToFile(scanner.getName() + "_results.txt", report.toString());
-        } else {
-            System.out.println("Report generation failed for scanner: " + scanner.getName());
+            //2. run each scanner
+            for(int i=0; i<arrScanner.size(); i++){
+                arrScanner.get(i).start();
+            }
+            ArrayList<Report> arrReports = new ArrayList<>();
+            for(int i=0; i<arrScanner.size(); i++){
+                arrScanner.get(i).join();
+                Report report = arrScanner.get(i).getReport();
+                arrReports.add(report);
+            }
+            Report report = new Report();
+            report.generateReport("all_reports.json", arrReports);
         }
     }
-
-    System.out.println("Individual reports are generated.");
-}
-*/
-    // Method to write report to a text file
-    /* 
-    private static void writeReportToFile(String fileName, String content) {
-        fileName = "scan_results.txt";
-        try (FileWriter fileWriter = new FileWriter(fileName)) {
-            fileWriter.write(content);
-            System.out.println("Report generated: " + fileName);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-*/
 }

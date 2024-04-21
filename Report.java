@@ -1,3 +1,4 @@
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -6,13 +7,14 @@ import java.util.*;
 
 
 class Report {
+    //private static final String REPORT_FILENAME = "report.json";
     private String output;
     public Report(){
     }
     // Constructor that takes a String argument
     public Report(String output) {
         this.output = output;
-        this.openPorts = "";
+
     }
 
    @Override
@@ -22,99 +24,32 @@ class Report {
 
     // Generate report after the scan is complete
     public void generateReport(String fileName, ArrayList<Report> arrReports) {
-        /* 
+        StringBuilder jsonBuilder = new StringBuilder();
+        jsonBuilder.append("[\n");
+
+        // Iterate over reports and generate JSON
         for (int i = 0; i < arrReports.size(); i++) {
             Report report = arrReports.get(i);
-            String scannerName = "Scanner_" + (i + 1);
-    
-            // Check if report is null
-            if (report != null) {
-                // Write the report to a separate text file for each scanner
-                writeReportsToFile("results.txt", arrReports);
-            } else {
-                System.out.println("Report generation failed for scanner: " + scannerName);
-            }
-        }
-*/
-        try {
-            String line;
-            StringBuilder jsonBuilder = new StringBuilder("{");
-            BufferedReader reader = new BufferedReader(new FileReader(fileName));
 
-            // Read lines from the text file
-            boolean firstLine = true;
-            while ((line = reader.readLine()) != null) {
-                // Assuming each line contains a key-value pair separated by ':'
-                String[] parts = line.split(":");
-                if (parts.length == 2) {
-                    if (!firstLine) {
-                        jsonBuilder.append(",");
-                    }
-                    jsonBuilder.append("\"").append(parts[0].trim()).append("\":\"").append(parts[1].trim()).append("\"\n");
-                    firstLine = false;
-                }
-            }
+            jsonBuilder.append("{\n");
+            jsonBuilder.append("\"scanner\": \"").append(report.getName()).append("\",\n");
+            jsonBuilder.append("\"output\": \"").append(report.getOutput()).append("\"\n");
             jsonBuilder.append("}");
-            reader.close();
 
-            // Write JSON object to output file
-            FileWriter writer = new FileWriter("output.json");
-            writer.write(jsonBuilder.toString());
-            writer.close();
-
-            System.out.println("Data converted successfully from text to JSON.");
-        } catch (IOException e) {
-            System.err.println("Error reading/writing file: " + e.getMessage());
-        }
-    
-        System.out.println("Individual reports are generated.");
-        /*try (FileWriter fileWriter = new FileWriter("scan_results.txt")) {
-            for (Report report : arrReports) {
-                // Write each report to the text file
-                fileWriter.write(report.toString());
-                fileWriter.write("\n\n");
+            if (i < arrReports.size() - 1) {
+                jsonBuilder.append(",\n");
             }
-            System.out.println("REPORT is generated and located at: scan_results.txt");
+        }
+
+        jsonBuilder.append("\n]");
+
+        // Write JSON data to file
+        try (FileWriter writer = new FileWriter(fileName, true)) {
+            writer.write(jsonBuilder.toString());
+            System.out.println("Reports generated and saved to " + fileName);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        */
-        // Implementation specific to generating a report
-        /* 
-        String inputFile = "Results.txt"; // Change this to your input text file
-        String outputFile = "Results.json"; // Change this to your desired output JSON file
-
-        try {
-            String line;
-            StringBuilder jsonBuilder = new StringBuilder("{");
-            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-
-            // Read lines from the text file
-            boolean firstLine = true;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(":");
-                if (parts.length == 2) {
-                    if (!firstLine) {
-                        jsonBuilder.append(",");
-                    }
-                    jsonBuilder.append("\"").append(parts[0].trim()).append("\":\"").append(parts[1].trim()).append("\"\n");
-                    firstLine = false;
-                }
-            }
-            jsonBuilder.append("}");
-            reader.close();
-
-            // Write JSON object to output file
-            FileWriter writer = new FileWriter(outputFile);
-            writer.write(jsonBuilder.toString());
-            writer.close();
-
-            System.out.println("Data converted successfully from text to JSON.");
-        } catch (IOException e) {
-            System.err.println("Error reading/writing file: " + e.getMessage());
-        }
-        */
-        System.out.println("Generating report: " + output);
     }
 /* 
     public static void writeReportsToFile(String fileName, List<Report> reports) {
@@ -132,6 +67,15 @@ class Report {
         }
     }
 */
+
+    public String getOutput() {
+        return output;
+    }
+
+    public String getName() {
+        // Implement this based on your Scanner interface
+        return name;
+    }
     // Generate an HTML report
     public void reportToHTML() {
         // Implementation specific to generating an HTML report
@@ -139,18 +83,16 @@ class Report {
     }
 
     private String firewallStatus;
-    private String openPorts;
+    private String name;
 
     public String getFirewallStatus() {
         return firewallStatus;
     }
 
-    public void setOpenPorts(String openPorts) {
-        this.openPorts = openPorts;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getOpenPorts() {
-        return openPorts;
-    }
+    
 
 }

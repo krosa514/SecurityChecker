@@ -1,4 +1,6 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -44,6 +46,7 @@ public class ShadowFileCheck implements Scanner {
 
 class ShadowFileCheckThread extends Thread {
     protected Report report; 
+    StringBuilder result = new StringBuilder();
 
     @Override
     public void run() {
@@ -52,7 +55,7 @@ class ShadowFileCheckThread extends Thread {
         runHashcat("sudo hashcat -a 0 -m 1800 /etc/shadow rockyou.txt --show", true);
     }
 
-    private static void runHashcat(String command, boolean printOutput) {
+    public void runHashcat(String command, boolean printOutput) {
         try {
             String[] hashcatCommand = {"bash", "-c", command};
 
@@ -69,7 +72,9 @@ class ShadowFileCheckThread extends Thread {
                 output.append(line).append("\n");
                 if (line.matches("^\\$\\d\\$.+:.+")) {
                     String[] parts = line.split(":", 2);
-                    printWarning("Password found for hash " + parts[0] + ": " + parts[1]);
+                    printWarning("Severity Level 1\nPassword found for hash " + parts[0] + ": " + parts[1]);
+                    result.append("Severity Level 1\n");
+                    result.append("Password found for hash " + parts[0] + ": " + parts[1]);
                 }
             }
 
@@ -77,10 +82,15 @@ class ShadowFileCheckThread extends Thread {
             System.out.println("Process exited with code: " + exitCode);
 
             String sout = output.toString();
+            System.out.println("Output:\n" + sout);
 
-            if (printOutput) {
-                System.out.println("Output:\n" + sout);
-                Report rpt = new Report(sout);
+            report = new Report(result.toString());
+            this.report.setName("Shadow File Password Check");
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("ShadowFileCheck.txt"))) {
+                writer.write(sout);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
         } catch (IOException | InterruptedException e) {

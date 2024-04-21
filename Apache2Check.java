@@ -43,6 +43,7 @@ public class Apache2Check implements Scanner {
 
 class Apache2CheckThread extends Thread {
     protected Report report;
+    String result;
 
     @Override
     public void run() {
@@ -51,9 +52,10 @@ class Apache2CheckThread extends Thread {
 
             boolean hasNologin = hasNologinShell(apacheUsername);
 
-            String result = hasNologin ? "The Apache2 account has nologin." : "The Apache2 account does not have nologin.";
+            result = hasNologin ? "The Apache2 account has nologin." : "The Apache2 account does not have nologin.";
             System.out.println("Output:\n" + result);
-            Report rpt = new Report(result);
+            report = new Report(result);
+            this.report.setName("Apache2 Check");
 
 
         } catch (IOException e) {

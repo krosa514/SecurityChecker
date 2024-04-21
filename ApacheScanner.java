@@ -104,6 +104,7 @@ class ApacheScanThread extends Thread {
     
             // Set the Report object in the Thread
             this.report = new Report(output.toString());
+            this.report.setName("Apache Server Check");
             System.out.println("Output:\n" + output.toString());
     
         } catch (IOException | InterruptedException e) {

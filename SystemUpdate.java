@@ -45,6 +45,7 @@ public class SystemUpdate implements Scanner {
 
 class SystemUpdateCheckThread extends Thread {
     protected Report report;
+    StringBuilder result = new StringBuilder();
 
     @Override
     public void run() { 
@@ -72,10 +73,14 @@ class SystemUpdateCheckThread extends Thread {
             } else {
                 if (updatesAvailable) {
                     System.out.println("Updates are available. You may need to update your system.");
+                    result.append("Updates are available. You may need to update your system. Please run the command sudo apt list --upgradable to see them");
                 } else {
                     System.out.println("Your system is up to date.");
+                    result.append("Your System is up to date");
                 }
             }
+            this.report = new Report(result.toString());
+            this.report.setName("System Update Check");
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }

@@ -60,7 +60,7 @@ class VulnerabilityVigil {
             Report report = arrReports.get(i);
             String scannerName = "Scanner_" + (i + 1);
             if (report != null) {
-                report.generateReport("results.txt", arrReports);
+              //  report.generateReport("results.txt", arrReports);
             } else {
                 System.out.println("Report generation failed for scanner: " + scannerName);
             }

@@ -4,6 +4,8 @@ import java.util.*;
 
 class VulnerabilityVigil {
 
+    static StringBuilder jsonBuilder = new StringBuilder();
+
     protected static ArrayList<Scanner> selectScanner(){
         ArrayList<Scanner> allScanners = new ArrayList<>();
         Scanner vs = new VirusScanner();
@@ -26,11 +28,21 @@ class VulnerabilityVigil {
 
         ArrayList<Scanner> selectedScanners = new ArrayList<>();
         java.util.Scanner inputScanner = new java.util.Scanner(System.in);
+        //StringBuilder jsonBuilder = new StringBuilder();
         while (true) {
             System.out.println("Type the name of the scanners you want to select (separated by spaces), 'help' for available scanners, or 'exit' to quit: ");
             String line = inputScanner.nextLine();
             if (line.equalsIgnoreCase("exit")) {
                 System.out.println("Exiting...");
+                jsonBuilder.append("\n]");
+
+                try (FileWriter writer = new FileWriter("all_reports.json", true)) {
+                    writer.write(jsonBuilder.toString());
+                    //System.out.println("Reports generated and saved to " + fileName);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 System.exit(0);
             } else if (line.equalsIgnoreCase("help")) {
                 // Clear the screen
@@ -46,15 +58,28 @@ class VulnerabilityVigil {
                 for(String name : words){
                     if (name.equalsIgnoreCase("exit")) {
                         System.out.println("Exiting...");
+                        jsonBuilder.append("\n]");
+
+                        try (FileWriter writer = new FileWriter("all_reports.json", true)) {
+                            writer.write(jsonBuilder.toString());
+                            //System.out.println("Reports generated and saved to " + fileName);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
                         System.exit(0);
                     }
+                    //jsonBuilder.append(",");
                     for (Scanner scanner : allScanners) {
+                        //jsonBuilder.append(",");
                         if (scanner.getName().equalsIgnoreCase(name)) {
                             selectedScanners.add(scanner);
                             break;
                         }
                     }
+                    //jsonBuilder.append(",");
                 }
+                //jsonBuilder.append(","); 
                 return selectedScanners;
             }
         }
@@ -62,7 +87,11 @@ class VulnerabilityVigil {
     
     // Main class
     public static void main(String[] args) {
+        //StringBuilder jsonBuilder = new StringBuilder();
+        jsonBuilder.append("[\n");
+        boolean first_record = true;
         while (true) {
+            
             // Clear the screen
             System.out.print("\033[H\033[2J");  
             System.out.flush();  
@@ -89,7 +118,15 @@ class VulnerabilityVigil {
                 arrReports.add(report);
             }
             Report report = new Report();
-            report.generateReport("all_reports.json", arrReports);
+            if (first_record == true) {
+                first_record = false;
+                report.generateReport("all_reports.json", arrReports,jsonBuilder);
+            //jsonBuilder.append(","); 
+            }
+            else {
+                jsonBuilder.append(",\n"); 
+                report.generateReport("all_reports.json", arrReports,jsonBuilder); 
+            }
         }
     }
 }

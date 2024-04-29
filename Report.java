@@ -7,7 +7,6 @@ import java.util.*;
 
 
 class Report {
-    //private static final String REPORT_FILENAME = "report.json";
     private String output;
     public Report(){
     }
@@ -19,13 +18,14 @@ class Report {
 
    @Override
     public String toString() {
-        return output; // Return the output of the report
+        return output.replace("\n", " ");// Return the output of the report
     }
 
     // Generate report after the scan is complete
-    public void generateReport(String fileName, ArrayList<Report> arrReports) {
-        StringBuilder jsonBuilder = new StringBuilder();
-        jsonBuilder.append("[\n");
+    public void generateReport(String fileName, ArrayList<Report> arrReports, StringBuilder jsonBuilder) {
+        //StringBuilder jsonBuilder = new StringBuilder();
+        //StringBuilder jsonBuilder = new StringBuilder();
+        //jsonBuilder.append("[\n");
 
         // Iterate over reports and generate JSON
         for (int i = 0; i < arrReports.size(); i++) {
@@ -36,13 +36,15 @@ class Report {
             jsonBuilder.append("\"output\": \"").append(report.getOutput()).append("\"\n");
             jsonBuilder.append("}");
 
-            if (i < arrReports.size() - 1) {
-                jsonBuilder.append(",\n");
-            }
+            // Add a comma if it's not the last element
+            //if (i < arrReports.size() - 1) {
+            //    jsonBuilder.append(",\n");
+            //}
         }
 
-        jsonBuilder.append("\n]");
+        //jsonBuilder.append("\n]");
 
+        /* 
         // Write JSON data to file
         try (FileWriter writer = new FileWriter(fileName, true)) {
             writer.write(jsonBuilder.toString());
@@ -50,26 +52,12 @@ class Report {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        */
     }
-/* 
-    public static void writeReportsToFile(String fileName, List<Report> reports) {
-        fileName = "results.txt";
-        try (FileWriter fileWriter = new FileWriter(fileName)) {
-            for (Report report : reports) {
-                String content = report.output; // Access the output directly
-                if (content != null) {
-                    fileWriter.write(content); // Write the report content to the file
-                    fileWriter.write("\n\n"); // Add new lines between reports
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-*/
+    
 
     public String getOutput() {
-        return output;
+        return output.replace("\n", " ");
     }
 
     public String getName() {

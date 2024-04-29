@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+	<tr class="table-active">
+	<tr class="table-primary">
+    <tr class="table-secondary">
+    <tr class="table-success">
+	green line
+    <tr class="table-danger">
+	red line
+    <tr class="table-warning">
+	yellow line
+    <tr class="table-info">
+	blue line
+    <tr class="table-light">
+	light
+    <tr class="table-dark">
+	dark (lighter than background)
+	
+	use <span> + .append to add to same line
+	
+	for testing go to cmd line (windows, run cmd line as admin)
+	Windows: "C:\Path\To\Your\chrome.exe" --user-data-dir="C:/Chrome dev session" --disable-web-security
+	Linux: google-chrome --disable-web-security
+	
+	DONT use this new chrome for browsing, theres no web security
+-->
+<head>   
+<title>Bootstrap Tutorial Sample Page</title>  
+  <meta charset="utf-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <script src="jquery-3.7.1.js"></script>
+</head>
+
+<style>
+h4 {
+	text-align:center;
+	background-color: #0098ff;
+	padding: 15px;
+	margin: auto;
+	
+}
+li {
+	margin-left:50px;
+}
+table, th, td {
+	border: 1px solid white;
+}
+</style>
+
+<body>
+	<h4><b>Virus Scan</b></h4>
+	
+	<table class="table table-hover">
+	<thead>
+		<tr>
+			<th scope="col">Virus Name</th>
+			<th scope="col">Severity</th>
+			<th scope="col">Category</th>
+			<th scope="col">File Location</th>
+			<th scope="col">Additional Details</th>
+		</tr>
+	</thead>
+	<tbody id="addVirus">
+
+	</tbody>
+	</table>
+	<b style="font-size: 20px; margin-right;">General Summary</b>
+	<p id="vSumm" style="margin:auto;white-space:pre-line;"></p>
+	
+	<h4><b>Checks<b></h4>
+	<br>
+	<li id="check1">MySQL Password Check: </li>
+	<br>
+	<li id="check2">Shadow File Check: </li>
+	<br>
+	<li id="check3">Cipher Suite Check: </li>
+	<br>
+	
+	<h4><b>Apache Scan</b></h4>
+	<p style="margin-auto; font-size:30px;">Status of Apache Server</p>
+		
+		<li id="apScan1">Server Update Status: </li>
+		<br>
+		<li id="apScan2">Server Status: </li>
+		
+	<br>
+	
+	<h4><b>Firewall Scan</b></h4>
+	<br>
+	<li id="FWStatus">Current Firewall Status: </li>
+	<br>
+	<li id="WAFStatus">Web Application Firewall of [sitename]: </li>
+	
+	
+	<script>
+		function boad() {
+		$(document).ready(function () {
+			$.getJSON("all_reports.json", 
+				function (data) {
+					var strRecords = '';
+					//$.each(data, function (key, value) {
+					
+					//var _ = data[0].scanner
+					var strRecords1 = data[0].output;
+					//$('#').append(title1);
+					$('#vSumm').append(strRecords1);
+					
+					//var _ = data[1].scanner
+					var strRecords2 = data[1].output;
+					//$('#').append(title2);
+					$('#FWStatus').append(strRecords2);
+					
+					//var _ = data[2].scanner
+					var strRecords3 = data[2].output;
+					//$('#').append(title3);
+					$('#apScan2').append(strRecords3);
+                    });
+                    //}); 
+                });
+		}
+		
+	</script>
+
+	<button onclick="boad()">Load JSON</button>
+	
+</body>
+</html>

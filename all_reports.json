@@ -1,6 +1,7 @@
 [
 {
 "scanner": "Virus Scanner",
+<<<<<<< HEAD
 "output": "LibClamAV Error: cli_loaddbdir: No supported database files found in /usr/local/var/lib/clamav ERROR: Can't open file or directory  ----------- SCAN SUMMARY ----------- Known viruses: 0 Engine version: 1.3.0 Scanned directories: 0 Scanned files: 0 Infected files: 0 Data scanned: 0.00 MB Data read: 0.00 MB (ratio 0.00:1) Time: 0.011 sec (0 m 0 s) Start Date: 2024:04:29 06:49:29 End Date:   2024:04:29 06:49:29 "
 },
 {
@@ -14,5 +15,32 @@
 {
 "scanner": "Firewall Vulnerability Scanner",
 "output": "No vulnerabilities detected by NMap"
+=======
+"output": "LibClamAV Warning: ************************************************** LibClamAV Warning: ***  The virus database is older than 7 days!  *** LibClamAV Warning: ***   Please update it as soon as possible.    *** LibClamAV Warning: ************************************************** /home/dshu/Downloads/eicar_com/eicar.com: Win.Test.EICAR_HDB-1 FOUND /home/dshu/Downloads/google-chrome-stable_current_amd64(1).deb: OK /home/dshu/Downloads/eicar_com.zip: Win.Test.EICAR_HDB-1 FOUND /home/dshu/Downloads/google-chrome-stable_current_amd64.deb: OK  ----------- SCAN SUMMARY ----------- Known viruses: 8691614 Engine version: 1.0.5 Scanned directories: 2 Scanned files: 4 Infected files: 2 Data scanned: 0.00 MB Data read: 204.03 MB (ratio 0.00:1) Time: 47.860 sec (0 m 47 s) Start Date: 2024:04:29 18:57:06 End Date:   2024:04:29 18:57:54 "
+},
+{
+"scanner": "Apache Server Check",
+"output": "Port 80 is enabled: tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN      SSL configured: Mutex ssl-stapling-refresh: using_defaults SSL module loaded:  ssl_module (shared) File owner: root Permission bits: drwxr-xr-x "
+},
+{
+"scanner": "Firewall Vulnerability Scanner",
+"output": "Vulnerabilities detected on port 631 "
+},
+{
+"scanner": "Shadow File Password Check",
+"output": "Severity Level 1 Password found for hash $6$FP2m5RPI7NVJYB2R$oSfdzNaJ0LIpvMJDttgpcWJhsDr5Je4UPQ5p.DjpPLWW50XkAkbi7YUZqwKi2EoksBdX3gQpACGYlZSVFSS8h1: goodyear"
+},
+{
+"scanner": "MySQL Password Check",
+"output": "Severity Level 1 Warning: found a default password pattern in the authentication string for User: dshu Severity Level 1 Warning: found a default password pattern in the authentication string for User: dshu1 "
+},
+{
+"scanner": "Web Application Firewall Detection",
+"output": "WAF Detected for noodle.com. It's name is: Cloudflare"
+},
+{
+"scanner": "System Update Check",
+"output": "Updates are available. You may need to update your system. Please run the command sudo apt list --upgradable to see them"
+>>>>>>> ac95ed5 (new json and changes)
 }
 ]

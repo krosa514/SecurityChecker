@@ -5,7 +5,7 @@
 },
 {
 "scanner": "Apache Server Check",
-"output": "Port 80 is enabled: tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN      SSL configured: Mutex ssl-stapling-refresh: using_defaults SSL module loaded:  ssl_module (shared) File owner: root Permission bits: drwxr-xr-x "
+"output": "Port 80 is enabled: tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN      \nSSL configured: Mutex ssl-stapling-refresh: using_defaults \nSSL module loaded:  ssl_module (shared)\n File owner: root \n Permission bits: drwxr-xr-x "
 },
 {
 "scanner": "Firewall Vulnerability Scanner",
@@ -17,7 +17,7 @@
 },
 {
 "scanner": "MySQL Password Check",
-"output": "Severity Level 1 Warning: found a default password pattern in the authentication string for User: dshu Severity Level 1 Warning: found a default password pattern in the authentication string for User: dshu1 "
+"output": "Severity Level 1 Warning: found a default password pattern in the authentication string for User: dshu\nSeverity Level 1 Warning: found a default password pattern in the authentication string for User: dshu1 "
 },
 {
 "scanner": "Web Application Firewall Detection",

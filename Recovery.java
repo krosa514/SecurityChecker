@@ -3,18 +3,21 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Recovery{
+public class Recovery {
     public static void main(String[] args) {
-        // File to be moved from the quarantine directory
-        String fileToMove = System.getProperty("user.home") + "/test/A.txt";
-
-        // Destination directory path
-        String destinationDirectory = System.getProperty("user.home") + "/recovered/";
-
-        // Command to move the file using sudo mv
-        String moveCommand = "sudo mv " + fileToMove + " " + destinationDirectory;
-
         try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+            // Ask the user for the file path to recover
+            System.out.print("Enter the file path to recover: ");
+            String fileToMove = reader.readLine();
+
+            // Destination directory path
+            String destinationDirectory = System.getProperty("user.home") + "/recovered/";
+
+            // Command to move the file using sudo mv
+            String moveCommand = "sudo mv " + fileToMove + " " + destinationDirectory;
+
             // Create the destination directory if it doesn't exist
             File recoveredDir = new File(destinationDirectory);
             if (!recoveredDir.exists()) {
@@ -28,7 +31,7 @@ public class Recovery{
 
             // Start the move process
             Process moveProcess = moveProcessBuilder.start();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(moveProcess.getInputStream()));
+            reader = new BufferedReader(new InputStreamReader(moveProcess.getInputStream()));
 
             // Read and print the output of the move process
             String line;

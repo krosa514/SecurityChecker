@@ -1,6 +1,8 @@
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.io.*;
-import java.util.*;
 
 class VulnerabilityVigil {
 
@@ -24,70 +26,88 @@ class VulnerabilityVigil {
         allScanners.add(sysupdate);
         Scanner wafDet = new wafDetCheck();
         allScanners.add(wafDet);
-        //add more
+        // Add more scanners
 
         ArrayList<Scanner> selectedScanners = new ArrayList<>();
         java.util.Scanner inputScanner = new java.util.Scanner(System.in);
-        //StringBuilder jsonBuilder = new StringBuilder();
+        
+        // Loop until exit command is received
         while (true) {
             System.out.println("Type the name of the scanners you want to select (separated by spaces), 'help' for available scanners, or 'exit' to quit: ");
             String line = inputScanner.nextLine();
+            
             if (line.equalsIgnoreCase("exit")) {
                 System.out.println("Exiting...");
                 jsonBuilder.append("\n]");
-
-                try (FileWriter writer = new FileWriter("all_reports.json", true)) {
-                    writer.write(jsonBuilder.toString());
-                    //System.out.println("Reports generated and saved to " + fileName);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
+                saveReport();
                 System.exit(0);
             } else if (line.equalsIgnoreCase("help")) {
                 // Clear the screen
-                System.out.print("\033[H\033[2J");  
-                System.out.flush();  
+                clearScreen();
+                
                 // Print available scanners
                 System.out.println("Available scanners:");
                 for (Scanner scanner : allScanners) {
                     System.out.println(scanner.getName());
                 }
-            } else {
-                String [] words = line.split(" ");
-                for(String name : words){
+            } //else if (line.equalsIgnoreCase("purge")) {
+                // Run the Purge command
+                //runJavaFile("Purge");
+             //else if (line.equalsIgnoreCase("recover")) {
+                // Run the Recovery command
+              //  runJavaFile("Recovery");
+             else {
+                // Process scanner selection
+                String[] words = line.split(" ");
+                for (String name : words) {
                     if (name.equalsIgnoreCase("exit")) {
                         System.out.println("Exiting...");
                         jsonBuilder.append("\n]");
-
-                        try (FileWriter writer = new FileWriter("all_reports.json", true)) {
-                            writer.write(jsonBuilder.toString());
-                            //System.out.println("Reports generated and saved to " + fileName);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
+                        saveReport();
                         System.exit(0);
                     }
-                    //jsonBuilder.append(",");
                     for (Scanner scanner : allScanners) {
-                        //jsonBuilder.append(",");
                         if (scanner.getName().equalsIgnoreCase(name)) {
                             selectedScanners.add(scanner);
                             break;
                         }
                     }
-                    //jsonBuilder.append(",");
                 }
-                //jsonBuilder.append(","); 
                 return selectedScanners;
             }
         }
     }
-    
+
+    // Helper method to clear the screen
+    private static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
+    // Helper method to run a Java file
+    private static void runJavaFile(String fileName) {
+        try {
+            ProcessBuilder pb = new ProcessBuilder("java", fileName);
+            pb.inheritIO(); // Redirects standard output and error to the current Java process
+            Process process = pb.start();
+            process.waitFor();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Helper method to save the report
+    private static void saveReport() {
+        try (FileWriter writer = new FileWriter("all_reports.json", true)) {
+            writer.write(jsonBuilder.toString());
+            System.out.println("Reports generated and saved to all_reports.json");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     // Main class
     public static void main(String[] args) {
-        //StringBuilder jsonBuilder = new StringBuilder();
         jsonBuilder.append("[\n");
         boolean first_record = true;
         while (true) {
@@ -121,7 +141,6 @@ class VulnerabilityVigil {
             if (first_record == true) {
                 first_record = false;
                 report.generateReport("all_reports.json", arrReports,jsonBuilder);
-            //jsonBuilder.append(","); 
             }
             else {
                 jsonBuilder.append(",\n"); 

@@ -36,7 +36,7 @@ class VulnerabilityVigil {
         
         // Loop until exit command is received
         while (true) {
-            System.out.println("Type the name of the scanners you want to select (separated by spaces), 'help' for available scanners, or 'exit' to quit: ");
+            //System.out.println("Type the name of the scanners you want to select (separated by spaces), 'help' for available scanners, or 'exit' to quit: ");
             String line = inputScanner.nextLine();
             
             if (line.equalsIgnoreCase("exit")) {
@@ -136,7 +136,7 @@ class VulnerabilityVigil {
             System.out.println("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
             System.out.println("Vulnerability Vigil");
             System.out.println("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
-            System.out.println("Hello. Welcome to Vulnerability Vigil. We are here to help you keep yourself safe. We have a multitude of scanners and check for you to use. Please type help all undercase to get a list of the commands. Please Type exit all undercase if you wish to stop Vulnerability Vigil. Exit and open the About.txt to learn more about the scanners and project as a whole.")
+            System.out.println("Hello. Welcome to Vulnerability Vigil. We are here to help you keep yourself safe. We have a multitude of scanners and check for you to use. To run the scans and checks please write the commands. To do more than one check or scan write the commands separated by a single space. Please type help all undercase to get a list of the commands. Please Type exit all undercase if you wish to stop Vulnerability Vigil. Exit and open the About.txt to learn more about the scanners and project as a whole.");
             // Print instructions
            // System.out.println("If you want to find out the commands, type help.");
 

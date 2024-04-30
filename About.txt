@@ -1,0 +1,57 @@
+About
+	VulnerabilityVigil is a command line based program made to help out those who may not be as knowledgeable 
+    about Linux servers. Certain aspects of Linux servers such as keeping your system secure and making sure 
+    everything is correctly is focused upon in this program. There are multiple tools included in the 
+    VulnerabilityVigil program, such as a Virus Scanner, a password security checker, a tool to check the 
+    status of Apache, and a few more functions to aid a Linux user on a server. Vulnerability Vigil is 
+    primarily made for Linux users and makes use of Linux commands at this moment so support for other 
+    platforms is currently not available. The main mode of accessing the functions of the program is through 
+    typing the name of the program when prompted. It is possible to run multiple programs at once if multiple 
+    different names are entered. Here are the following commands for each program:
+___ - Starts the virus scanner
+___ - Starts the Apache scanner
+___ - Starts the WAF detection program
+___ - Starts the cipher suite check
+___ - Starts the password check
+___ - Starts the update/system update check
+___ - Shows the about section
+WAF Detection
+	This tool helps you to discover the web application firewall of a site on the internet. The tool makes use 
+    of wafw00f for WAF detection. A web application firewall is like a filter for traffic when connecting to a 
+    site and provides a defense for a lot of attacks such as cross-site-scripting and SQL injection. WAFs are 
+    not able to defend a site against every type of attack, but it is an added layer of defense that is 
+    preferable to have than not.
+Cipher Check
+	This program will check a few common configuration files to see the cipher suites used are secure. All 
+    servers and websites make use of some type of encryption protocol in order to send data safely and securely,
+    cipher suites are one of the encryption tools your server uses for these purposes. Encryption is an 
+    essential part of any between devices over a connection as it protects your data from being intercepted by 
+    an outside party, like for a MitM attack. Your server and/or site most likely makes use of cipher suites, 
+    but if not it is highly advised you make use of some. In general, higher bit encryption is favorable, lower 
+    than 112 is not very secure, but too high bit keys can severely slow down encryption speeds. Some sample 
+    cipher suites to use are within the program. Check your TLS version using [insert command] to see which 
+    suites are compatible with the version of TLS your server uses.
+Shadow Password Check
+    This program will check all the passwords for all users within a Linux system to see if there are any weak 
+passwords. This is done by using a dictionary attack using the program Hashcat. A dictionary attack is a method 
+of breaking into a password-protected computer or network by systematically entering every word in a dictionary,
+or word list, as a password. The word list used by our shadow password check is rockyou.txt containing millions
+of common words and phrases and utilizing Hashcat to check different combinations of the words and phrases in 
+this dictionary to determine whether a user has a weak password in the Linux system.
+MySQL Password Check
+    This program will check all the passwords for all users created in a MySQL database server. This is done by 
+logging into the user’s root account for the MySQL password and opening the table of users and their 
+authentication string for the login of their MySQL databases. A default password for a MySQL database server is 
+when the user provides no password when creating the user, which will result in an empty string for the table of
+authenticated users within the MySQL server. To check if all the passwords are good and that there is no 
+default password used for login, the password check function checks for an empty string for the user’s 
+authentication string and returns the name of the user with a default password for the MySQL login.
+Virus Scanner 
+	This program uses the ClamAV open source tool to check wherever you select for viruses. They do this by 
+checking a database and cross referencing byte signatures to check if the file has a malicious intent. The 
+scan will then send out what it finds which you will see in the report function that Vulnerability Vigil 
+will provide. What you can do is choose to specifically target small directories to increase the speed of 
+the scanner. The more broad the scan the more time it will take to finish the scan. What I suggest is to 
+run the scan repeatedly looking at specific directories or create a specific Directory that you put new 
+files in to allow the amount scanned be very little and focused.
+

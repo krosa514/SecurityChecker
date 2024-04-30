@@ -3,6 +3,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 class VulnerabilityVigil {
 
@@ -110,6 +113,19 @@ class VulnerabilityVigil {
     public static void main(String[] args) {
         jsonBuilder.append("[\n");
         boolean first_record = true;
+        
+        String fileName = "all_reports.json";
+        Path filePath = Paths.get(fileName);
+        if (Files.exists(filePath)) {
+            try {
+                Files.delete(filePath);
+                System.out.println("Deleted existing all_reports.json file.");
+            } catch (Exception e) {
+                System.out.println("Error deleting existing all_reports.json file: " + e.getMessage());
+            }
+        }
+
+        //String cmd = "sudo rm all_reports.json";
         while (true) {
             
             // Clear the screen

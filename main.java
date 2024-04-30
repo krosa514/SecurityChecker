@@ -136,9 +136,9 @@ class VulnerabilityVigil {
             System.out.println("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
             System.out.println("Vulnerability Vigil");
             System.out.println("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
-            
+            System.out.println("Hello. Welcome to Vulnerability Vigil. We are here to help you keep yourself safe. We have a multitude of scanners and check for you to use. Please type help all undercase to get a list of the commands. Please Type exit all undercase if you wish to stop Vulnerability Vigil. Exit and open the About.txt to learn more about the scanners and project as a whole.")
             // Print instructions
-            System.out.println("If you want to find out the commands, type help.");
+           // System.out.println("If you want to find out the commands, type help.");
 
             //1. get the list of scanners to run
             ArrayList<Scanner> arrScanner = selectScanner();

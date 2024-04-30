@@ -69,7 +69,7 @@ class VulnerabilityVigil {
 
             // Print the title
             System.out.println("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
-            System.out.println("// Vulnerability Vigil");
+            System.out.println("Vulnerability Vigil");
             System.out.println("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
             
             // Print instructions

@@ -31,4 +31,16 @@ SSL is not configured.
 SSL module is not loaded.
 "
 }
+][
+{
+"scanner": "Firewall Vulnerability Scanner",
+"output": "No vulnerabilities detected by NMap"
+},
+{
+"scanner": "Apache Server Check",
+"output": "Port 80 is not enabled.
+SSL is not configured.
+SSL module is not loaded.
+"
+}
 ]

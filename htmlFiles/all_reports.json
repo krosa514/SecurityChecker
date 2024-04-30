@@ -1,0 +1,14 @@
+[
+{
+"scanner": "Virus Scanner",
+"output": "/home/virus folder: No such file or directory\nWARNING: /home/virus folder: Can't access file\n\n----------- SCAN SUMMARY -----------\nKnown viruses: 8691424\nEngine version: 0.103.11\nScanned directories: 0\nScanned files: 0\nInfected files: 0\nData scanned: 0.00 MB\nData read: 0.00 MB (ratio 0.00:1)\nTime: 18.956 sec (0 m 18 s)\nStart Date: 2024:04:21 18:32:47\nEnd Date:   2024:04:21 18:33:06"
+},
+{
+"scanner": "Firewall Vulnerability Scanner",
+"output": "No vulnerabilities detected by NMap"
+},
+{
+"scanner": "Apache Server Check",
+"output": "Port 80 is not enabled.\nSSL is not configured.\nSSL module is not loaded."
+}
+]

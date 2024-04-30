@@ -87,11 +87,6 @@ class ShadowFileCheckThread extends Thread {
             report = new Report(result.toString());
             this.report.setName("Shadow File Password Check");
 
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter("ShadowFileCheck.txt"))) {
-                writer.write(sout);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();

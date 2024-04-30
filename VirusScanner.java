@@ -83,12 +83,7 @@ class VirusScanThread extends Thread {
             String sout = output.toString();
             System.out.println("Output:\n" + sout);
 
-            //// Write the output to a text file//
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter("Results.txt"))) {
-                writer.write(sout);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
 
             // Create a Report object with the output
             report = new Report(sout);

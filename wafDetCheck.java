@@ -93,9 +93,7 @@ class wafDetCheckThread extends Thread {
             System.out.print("Enter website url: ");
             input = sc.nextLine();
         }
-
         // System.out.println("Just a test, you entered: " + input);
-        sc.close();
 
         //setting up for the command to be used
         ProcessBuilder procBuild = new ProcessBuilder();

@@ -22,25 +22,22 @@ End Date:   2024:04:21 18:33:06
 ][
 {
 "scanner": "Firewall Vulnerability Scanner",
-"output": "No vulnerabilities detected by NMap"
+"output": "Vulnerabilities detected on port 631 "
 },
 {
-"scanner": "Apache Server Check",
-"output": "Port 80 is not enabled.
-SSL is not configured.
-SSL module is not loaded.
-"
-}
-][
-{
-"scanner": "Firewall Vulnerability Scanner",
-"output": "No vulnerabilities detected by NMap"
+"scanner": "Shadow File Password Check",
+"output": "Severity Level 1 Password found for hash $6$FP2m5RPI7NVJYB2R$oSfdzNaJ0LIpvMJDttgpcWJhsDr5Je4UPQ5p.DjpPLWW50XkAkbi7YUZqwKi2EoksBdX3gQpACGYlZSVFSS8h1: goodyear"
 },
 {
-"scanner": "Apache Server Check",
-"output": "Port 80 is not enabled.
-SSL is not configured.
-SSL module is not loaded.
-"
+"scanner": "MySQL Password Check",
+"output": "Severity Level 1 Warning: found a default password pattern in the authentication string for User: dshu\nSeverity Level 1 Warning: found a default password pattern in the authentication string for User: dshu1 "
+},
+{
+"scanner": "Web Application Firewall Detection",
+"output": "WAF Detected for noodle.com. It's name is: Cloudflare"
+},
+{
+"scanner": "System Update Check",
+"output": "Updates are available. You may need to update your system. Please run the command sudo apt list --upgradable to see them"
 }
 ]

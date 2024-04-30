@@ -54,4 +54,5 @@ will provide. What you can do is choose to specifically target small directories
 the scanner. The more broad the scan the more time it will take to finish the scan. What I suggest is to 
 run the scan repeatedly looking at specific directories or create a specific Directory that you put new 
 files in to allow the amount scanned be very little and focused.
+	The program utilizes a JSON Array when generating the results for the user in the report. When the program is run, and the user selects a scanner, the results will be stored in an array of reports. When generating the report, the results that are stored in the array will then be extracted and manually paired into a JSON format. This is fundamental for the user as it allows a simple and understandable format for the users to view their results. After the user exits the program, the JSON file will be generated, with a list of all of the results of the scans the user has chosen. 
 

@@ -21,7 +21,7 @@
 	
 	for testing go to cmd line (windows, run cmd line as admin)
 	Windows: "C:\Path\To\Your\chrome.exe" --user-data-dir="C:/Chrome dev session" --disable-web-security
-	Linux: google-chrome --disable-web-security --usr-data-dir="[enter any name]"
+	Linux: google-chrome --disable-web-security
 	
 	DONT use this new chrome for browsing, theres no web security
 -->
@@ -43,9 +43,14 @@ h4 {
 }
 li {
 	margin-left:50px;
+	font-size: 23px;
 }
 table, th, td {
 	border: 1px solid white;
+}
+span {
+	font-size: 16px;
+	white-space:pre-line;
 }
 </style>
 
@@ -66,49 +71,70 @@ table, th, td {
 
 	</tbody>
 	</table>
-	<b style="font-size: 20px; margin-right;">General Summary</b>
+	<b style="font-size: 30px; margin-right;">General Summary</b>
 	<p id="vSumm" style="margin:auto;white-space:pre-line;"></p>
 	
 	<h4><b>Checks<b></h4>
 	<br>
-	<li id="check1">MySQL Password Check: </li>
+	<li>MySQL Password Check: <span id="check1"></span></li>
 	<br>
-	<li id="check2">Shadow File Check: </li>
+	<li>Shadow File Check: <span id="check2"></span></li>
 	<br>
-	<li id="check3">Cipher Suite Check: </li>
+	<li>Cipher Suite Check: <span id="check3"><span class="text-danger">Bad Ciphers Detected:</span> </span>
+	<br>
+	Recommended Action: Change cipher suites by editing your configure file. Sites like cipherinfo.com can offer some insight 
+	</li>
+	<br>
+	<li>System Update Check: <span id="check4"></span></li>
 	<br>
 	
 	<h4><b>Apache Scan</b></h4>
 	<p style="margin-auto; font-size:30px;">Status of Apache Server</p>
-		
-		<li id="apScan1">Server Update Status: </li>
-		<br>
-		<li id="apScan2">Server Status: </li>
-		
+	<div style="margin-left:50px;">	
+	<span id="apScan2" style="margin:auto;white-space:pre-line;"></span>
+	</div>
 	<br>
 	
 	<h4><b>Firewall Scan</b></h4>
+	<p style="margin-auto; font-size:30px;">Status of Firewall</p>
+	<li>Firewall Status: <span id="FWStatus" class="text-danger"></span></li>
 	<br>
-	<li id="FWStatus">Current Firewall Status: </li>
-	<br>
-	<li id="WAFStatus">Web Application Firewall of [sitename]: </li>
+	<li>Web Application Firewall: <span id="WAFStatus"></span></li>
+	
+	
 	
 	
 	<script>
 		function boad() {
 		$(document).ready(function () {
-			$.getJSON("all_reports.json", 
+			$.getJSON("all_reportsDemo3.json", 
 				function (data) {
 					var strRecords = '';
-					//$.each(data, function (key, value) {
+					// for each 
+					$.each(data[1].output, function (key, value) {
+						strRecords += '<tr class="table-warning">'
+						strRecords += '<td>EICAR_HDB-1</td>'
+						strRecords += '<td>Low</td>'
+						strRecords += '<td>Test</td>'
+						var tmp = value.split(' ')
+						tmp = tmp[0]
+						tmp = tmp.slice(0, -1)
+						strRecords += '<td>' + tmp + '</td>'
+						strRecords += '<td>A file used to test virus scanners, most likely not harmful to your system.</td>'
+						strRecords += '<tr>'
+						
+					});
+					$('#addVirus').append(strRecords)
+					
+					// commented lines are from previous tests they can be ignored
 					
 					//var _ = data[0].scanner
-					var strRecords1 = data[0].output;
+					strRecords1 = data[0].output;
 					//$('#').append(title1);
 					$('#vSumm').append(strRecords1);
 					
 					//var _ = data[1].scanner
-					var strRecords2 = data[1].output;
+					var strRecords2 = data[3].output;
 					//$('#').append(title2);
 					$('#FWStatus').append(strRecords2);
 					
@@ -116,8 +142,23 @@ table, th, td {
 					var strRecords3 = data[2].output;
 					//$('#').append(title3);
 					$('#apScan2').append(strRecords3);
+					
+					strRecords4 = data[4].output
+					$('#check2').append(strRecords4);
+					
+					strRecords5 = data[5].output
+					$('#check1').append(strRecords5);
+					
+					strRecords6 = data[6].output
+					$('#WAFStatus').append(strRecords6);
+					
+					strRecords7 = data[7].output
+					$('#check3').append(strRecords7);
+					
+					strRecords8 = data[8].output
+					$('#check4').append(strRecords8);
+					
                     });
-                    //}); 
                 });
 		}
 		
